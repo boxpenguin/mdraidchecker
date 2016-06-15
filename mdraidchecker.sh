@@ -30,7 +30,8 @@ if  grep -B1 -q _ /proc/mdstat ; then
        	cat /proc/mdstat >> $LOG
 	while read -r line
 	do
-		mdadm --detail $line | tee -a $LOG
+		mdadm --detail $line
+		mdadm --detail $line >> $LOG
 	done < /tmp/failed_raid
 else
 	echo "RAID HEALTHY" | tee -a $LOG
