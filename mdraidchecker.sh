@@ -17,7 +17,7 @@ rm /tmp/failed_raid 2>/dev/null
 generate_raidlist () {
 cleanup
 touch /tmp/raid
-touch /tmp/failed_Raid
+touch /tmp/failed_raid
 cat /proc/mdstat | grep md[[:digit:]] | awk '{ print "\/dev\/" $1}' 2> /dev/null 1>> /tmp/raid
 grep -B1 _ /proc/mdstat | grep md* | awk '{ print "\/dev\/" $1}' 2> /dev/null 1>> /tmp/failed_raid
 }
