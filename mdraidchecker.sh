@@ -25,12 +25,12 @@ grep -B1 _ /proc/mdstat | grep md* | awk '{ print "\/dev\/" $1}' 2> /dev/null 1>
 # performs main reports to the logs
 perform_report () {
 if  grep -B1 -q _ /proc/mdstat ; then
-	echo "RAID FAILED" | tee -a $LOG
         echo $TIMESTAMP >> $LOG
+	echo "RAID FAILED" | tee -a $LOG
        	cat /proc/mdstat >> $LOG
 	while read -r line
 	do
-		mdadm --detail $line >> $LOG
+		mdadm --detail $line | tee -a $LOG
 	done < /tmp/failed_raid
 else
 	echo "RAID HEALTHY" | tee -a $LOG
