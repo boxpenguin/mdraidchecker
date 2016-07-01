@@ -42,12 +42,17 @@ fi
 
 # Manually checks raids
 perform_check () {
-echo "Displaying RAID stats, please proceed with 'q': screen (1)/3." | less && cat /proc/mdstat | less && mdadm --detail /dev/md* | less
+echo "Displaying RAID stats, please proceed with 'q': screen (1)/4." | less && lsblk | less && cat /proc/mdstat | less && mdadm --detail /dev/md* | less
 }
 
 # Allows easy navigation of logs
 perform_log () {
 echo "Displaying Logs, please proceed with 'q': screen (1)/2." | less && less $LOG
+}
+
+# Allows easy navigation of rebuild efforts
+perform_watch () {
+watch cat /proc/mdstat
 }
 
 # CASE Menu
@@ -67,9 +72,16 @@ case $1 in
 	perform_log
 	cleanup
 	;;
-	"")
-	echo "--report; will output to logs as configured in ./raid.config"
+	"--watch")
+	perform_watch
+	;;
+	"--help")
+	echo "--report; will output to logs"
 	echo "--check; will ouput to screen will not track in logs"
 	echo "--log; steps into the log"
+	echo "--watch; watch rebuild efforts"
+	;;
+	*)
+	echo "Please use --help for more information"
 	;;
 esac
