@@ -11,7 +11,7 @@ Report Mode: --report
 Best suited for crons or user triggered. This profile will write all infromation to the logs at /var/log/raidchecker.log
 
 Check Mode: --check
-This will cearch for all MDRAIDS and perform a detail check on all them. [TODO: expand this to check individual drives as well.
+This will search for all MDRAIDs and perform a detail check on all them.
 
 Log Mode: --log
 This will allow easy navigation through the logs.
